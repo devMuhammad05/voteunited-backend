@@ -31,7 +31,7 @@ class SyncMembers extends Command
         $this->info('Fetching members from API...');
 
         $response = Http::get('https://api.congress.gov/v3/member', [
-            'api_key' => 'ZOhszC52WhvJkzfzVnRNitIUBkTg7JLP9eLXoYWb',
+            'api_key' => config('services.congress.api_key'),
             'format'  => 'json',
             'limit'  => 50,
             // 'limit'   => 250

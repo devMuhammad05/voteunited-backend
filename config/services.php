@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'congress' => [
+        'api_key' => env('CONGRESS_API_KEY')
+    ],
+
 ];
