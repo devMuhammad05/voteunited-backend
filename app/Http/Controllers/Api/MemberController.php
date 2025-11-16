@@ -11,10 +11,21 @@ class MemberController extends Controller
 {
     public function index(): JsonResponse
     {
-        $members = Member::withCount('votes')->get();
+        $members = Member::withCount('votes')->paginate(20);
 
         return response()->json([
             'members' => $members
         ]);
+    }
+
+    public function show(int $id): JsonResponse
+    {
+        $member = Member::with('votes')->find($id);
+
+        if (!$member) {
+            return response()->json(['message' => 'Member not found'], 404);
+        }
+
+        return response()->json($member);
     }
 }
