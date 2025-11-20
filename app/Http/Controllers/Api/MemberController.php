@@ -11,7 +11,7 @@ class MemberController extends Controller
 {
     public function index(): JsonResponse
     {
-        $members = Member::withCount('votes')->paginate(20);
+        $members = Member::withCount('votes')->get();
 
         return response()->json([
             'members' => $members
