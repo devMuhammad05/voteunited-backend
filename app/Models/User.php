@@ -52,15 +52,17 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
 
-        if (! app()->isProduction()) {
-            return true; // Allow access in non-production environments
-        }
+        // if (! app()->isProduction()) {
+        //     return true; // Allow access in non-production environments
+        // }
 
-        if ($this->role === Role::Admin) {
-            return str_ends_with($this->email, '@voteunited.com') && $this->hasVerifiedEmail();
-        }
+        // if ($this->role === Role::Admin) {
+        //     return str_ends_with($this->email, '@voteunited.com') && $this->hasVerifiedEmail();
+        // }
 
-        return false;
+        // return false;
+
+        return true;
 
     }
 }
