@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources\Members\Tables;
 
+use Filament\Tables\Table;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Tables\Columns\ImageColumn;
 
 class MembersTable
 {
@@ -16,8 +18,14 @@ class MembersTable
         return $table
             ->columns([
                 TextColumn::make('external_id')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
+
+                ImageColumn::make('image_url')
+                    ->label("Image"),
+
                 TextColumn::make('name')
+                    ->weight(FontWeight::Bold)
                     ->searchable(),
                 TextColumn::make('party')
                     ->searchable(),
@@ -26,12 +34,18 @@ class MembersTable
                 TextColumn::make('district')
                     ->numeric()
                     ->sortable(),
-                ImageColumn::make('image_url'),
-                ImageColumn::make('image_attribution'),
+
+
+
+                // ImageColumn::make('image_attribution'),
                 TextColumn::make('source_url')
+                    ->tooltip("Click to copy source")
+                    ->copyable()
+                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 TextColumn::make('external_updated_at')
                     ->dateTime()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 TextColumn::make('deleted_at')
                     ->dateTime()
@@ -51,6 +65,7 @@ class MembersTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make()
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

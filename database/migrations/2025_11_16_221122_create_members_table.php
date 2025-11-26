@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             // External unique reference
-            $table->string('external_id')->unique(); // bioguideId
+            $table->string('external_id')->nullable()->unique(); // bioguideId
 
             // Basic info
             $table->string('name');
