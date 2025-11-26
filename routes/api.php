@@ -11,6 +11,12 @@ Route::get('/user', function (Request $request) {
 
 
 
+Route::get('/', function (Request $request) {
+    return response()->json([
+        "message" => "Api is active"
+    ]);
+});
+
 Route::get('members', [MemberController::class, 'index']);
 Route::get('members/{id}', [MemberController::class, 'show']);
 Route::post('upvote-member', [UpvoteController::class, 'store']);
