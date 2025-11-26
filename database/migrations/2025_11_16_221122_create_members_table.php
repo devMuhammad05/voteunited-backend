@@ -36,6 +36,7 @@ return new class extends Migration
             // External update timestamp
             $table->timestamp('external_updated_at')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }
