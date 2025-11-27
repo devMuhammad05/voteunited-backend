@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\VoteType;
 use App\Models\Vote;
+use App\Enums\VoteType;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreVoteRequest;
 
-class UpvoteController extends Controller
+class DownvoteController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -26,21 +26,21 @@ class UpvoteController extends Controller
             ->first();
 
         if ($existingVote) {
-            if ($existingVote->type === VoteType::Upvote) {
-                return response()->json(['message' => 'You already upvoted this member.'], 409);
+            if ($existingVote->type === VoteType::Downvote) {
+                return response()->json(['message' => 'You already downvoted this member.'], 409);
             }
 
             $existingVote->update([
-                'type' => VoteType::Upvote
+                'type' => VoteType::Downvote
             ]);
 
-            return response()->json(['message' => 'Vote changed to upvote.'], 200);
+            return response()->json(['message' => 'Vote changed to downvote.'], 200);
         }
 
         Vote::create([
             'member_id' => $memberId,
             'ip_address' => $ip,
-            'type' => VoteType::Upvote
+            'type' => VoteType::Downvote
         ]);
 
         return response()->json(['message' => 'Vote registered successfully.'], 201);
