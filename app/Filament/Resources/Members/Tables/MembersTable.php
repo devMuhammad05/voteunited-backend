@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Members\Tables;
 
+use App\Enums\VoteType;
 use Filament\Tables\Table;
 use Filament\Actions\EditAction;
 use Filament\Actions\DeleteAction;
@@ -33,15 +34,29 @@ class MembersTable
                     ->searchable(),
                 TextColumn::make('district')
                     ->numeric()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
 
 
+                TextColumn::make('total_upvotes')
+                    ->label('Total Upvotes')
+                    ->getStateUsing(fn($record) => $record->votes()
+                        ->where('type', VoteType::Upvote)
+                        ->count())
+                    ->sortable(),
+
+                TextColumn::make('total_downvotes')
+                    ->label('Total Downvotes')
+                    ->getStateUsing(fn($record) => $record->votes()
+                        ->where('type', VoteType::Downvote)
+                        ->count())
+                    ->sortable(),
 
                 // ImageColumn::make('image_attribution'),
                 TextColumn::make('source_url')
                     ->tooltip("Click to copy source")
                     ->copyable()
-                     ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 TextColumn::make('external_updated_at')
                     ->dateTime()
