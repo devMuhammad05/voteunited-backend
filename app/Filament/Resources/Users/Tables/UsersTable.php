@@ -16,12 +16,8 @@ class UsersTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('role')
-                    ->searchable(),
                 TextColumn::make('email')
                     ->label('Email address')
-                    ->searchable(),
-                TextColumn::make('google_id')
                     ->searchable(),
                 TextColumn::make('email_verified_at')
                     ->dateTime()
