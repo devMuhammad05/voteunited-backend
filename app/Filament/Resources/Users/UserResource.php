@@ -14,6 +14,7 @@ use App\Filament\Resources\Users\Pages\ListUsers;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
+use \Illuminate\Database\Eloquent\Builder;
 
 class UserResource extends Resource
 {
@@ -35,6 +36,13 @@ class UserResource extends Resource
     {
         return static::getModel()::whereNot('role', Role::Admin)->count();
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->whereNot('role', Role::Admin);
+    }
+
 
     protected static ?string $navigationBadgeTooltip = 'The number of users';
 
