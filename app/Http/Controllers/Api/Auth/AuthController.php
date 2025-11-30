@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Api\Auth;
 use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Laravel\Socialite\Socialite;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Laravel\Socialite\Facades\Socialite;
+
 
 class AuthController extends Controller
 {
     public function loginWithGoogle(Request $request)
     {
-        Log::info('request from frontend', ["data" => $request->all()]);
+        // Log::info('request from frontend', ["data" => $request->all()]);
 
         $request->validate([
             'access_token' => 'required|string',
@@ -41,7 +42,6 @@ class AuthController extends Controller
                 'token_type' => 'Bearer',
                 'user' => $user,
             ], 200);
-
         } catch (Exception $e) {
             return response()->json([
                 'error' => 'Invalid Google Token',

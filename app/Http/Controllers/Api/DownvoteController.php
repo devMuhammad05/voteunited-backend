@@ -43,6 +43,6 @@ class DownvoteController extends Controller
             'type' => VoteType::Downvote
         ]);
 
-        return response()->json(['message' => 'Vote registered successfully.'], 201);
+        return response()->json(['message' => 'Downvote registered successfully.'], 201);
     }
 }
